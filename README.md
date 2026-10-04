@@ -9,7 +9,7 @@ macOS 上的轻量后台助手：在 Google Chrome 位于前台时，按 **Contr
 - 版本：1.1（build 2）。
 - 已验证环境：macOS Sequoia 15.8.1、Chrome 154.0.8037.93、Intel Mac。
 - 本次 Release 的 ZIP 是 Intel x86_64 版本；Apple Silicon 可在本机从源码构建，功能尚未实机验证。
-- 仓库保持 Private。
+- 本项目使用 MIT 许可证，源码与 Release 可在 GitHub 获取。
 - 仅授权辅助功能即可完成当前翻译逻辑。
 
 ## 下载与安装
@@ -40,14 +40,14 @@ bash scripts/install.sh /path/to/ChromeTranslateHotkey.app
 
 ## 从源码构建
 
-需要 Xcode 或 Command Line Tools，以及 macOS 自带的 sips、iconutil 和 codesign。
+需要 Xcode 或 Command Line Tools、Python 3，以及 macOS 自带的 sips、iconutil 和 codesign。
 
 ```bash
 bash scripts/build.sh
 bash scripts/install.sh
 ```
 
-默认按当前 Mac 架构构建，最低部署版本设为 macOS 15.0。构建产物位于 `dist/`，包括 App 和 ZIP。
+默认按当前 Mac 架构构建，最低部署版本设为 macOS 15.0。构建产物位于 `dist/`，包括 App 和 ZIP。ZIP 不包含 `__MACOSX`、AppleDouble 文件或文件系统扩展属性。
 
 指定架构：
 
@@ -65,6 +65,7 @@ BUILD_ARCH=arm64 bash scripts/build.sh
 - `Resources/Info.plist`：App 配置。
 - `scripts/build.sh`：编译、生成图标、签名与打包。
 - `scripts/install.sh`：备份旧版、安装并更新 LaunchAgent。
+- `scripts/package.py`：打包 App，不写入 AppleDouble 文件和扩展属性。
 
 ## 实现与限制
 
